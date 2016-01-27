@@ -14,6 +14,7 @@ var fs = require('fs');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
+var _ = require('lodash');
 var app = express();
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
@@ -71,6 +72,32 @@ app.post('/api/comments', function(req, res) {
   });
 });
 
+app.delete('/api/comments', function(req, res) {
+  console.log('You want to remove comment with id:', req.body.id);      
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    var comments = JSON.parse(data),
+        removedElement = _.remove(comments, function(element) {
+          return element.id === _.toNumber(req.body.id);
+        });
+
+    if (removedElement.length === 0) {
+      res.status(404).end();
+    }
+    
+    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.status(200).end();
+    });
+
+  });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
