@@ -60,8 +60,40 @@ app.post('/api/comments', function(req, res) {
       id: Date.now(),
       author: req.body.author,
       text: req.body.text,
+      likes: 0
     };
     comments.push(newComment);
+    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(comments);
+    });
+  });
+});
+
+app.put('/api/comments', function (req, res) {
+  console.log('You want to update comment with id:', req.body.id);
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    var comments = JSON.parse(data),
+        index = _.findIndex(comments, {id: _.toNumber(req.body.id)});
+
+    if (index === -1) {
+       return res.status(404).end();
+    } else {
+      comments[index] = {
+        id: _.toNumber(req.body.id),
+        author: req.body.author,
+        text: req.body.text,
+        likes: _.toNumber(req.body.likes)
+      };
+    }
+
     fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
       if (err) {
         console.error(err);
@@ -85,7 +117,7 @@ app.delete('/api/comments', function(req, res) {
         });
 
     if (removedElement.length === 0) {
-      res.status(404).end();
+      return res.status(404).end();
     }
     
     fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
@@ -93,7 +125,7 @@ app.delete('/api/comments', function(req, res) {
         console.error(err);
         process.exit(1);
       }
-      res.status(200).end();
+      res.json(comments);
     });
 
   });

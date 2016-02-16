@@ -47,11 +47,27 @@ export default class CommentBox extends React.Component {
             }
         });
     };
+    handleCommentRemove = (id) => {
+        console.log('REMOVE: ', id);
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'DELETE',
+            data: id,
+            success: (data) => {
+                this.setState({data: data});
+            },
+            error: (xhr, status, err) => {
+                this.setState({data: comments});
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    };
 
     render() {
         return <div className="commentBox">
             <h1>Comments</h1>
-            <CommentList data={this.state.data}/>
+            <CommentList data={this.state.data} onCommentRemove={this.handleCommentRemove}/>
             <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
         </div>
     }

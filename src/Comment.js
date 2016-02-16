@@ -6,12 +6,19 @@ export default class Comment extends React.Component {
         return {__html: rawMarkup};
     }
 
+    handleCommentRemove = () => {
+        this.props.onCommentRemove({
+            id: this.props.id
+        });
+    };
+
     render() {
         return <div className="comment">
             <h2 className="commentAuthor">
                 {this.props.author}
             </h2>
             <span dangerouslySetInnerHTML={this.rawMarkup()}/>
+            <button onClick={this.handleCommentRemove}>Remove me</button>
         </div>
     }
 }
