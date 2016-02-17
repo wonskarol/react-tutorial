@@ -58,7 +58,24 @@ export default class CommentBox extends React.Component {
                 this.setState({data: data});
             },
             error: (xhr, status, err) => {
-                this.setState({data: comments});
+                this.setState({data: this.state.data});
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    };
+
+    handleCommentUpdate = (comment) => {
+        console.log('UPDATE: ', comment);
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'PUT',
+            data: comment,
+            success: (data) => {
+                this.setState({data: data});
+            },
+            error: (xhr, status, err) => {
+                this.setState({data: this.state.data});
                 console.error(this.props.url, status, err.toString());
             }
         });
@@ -67,7 +84,8 @@ export default class CommentBox extends React.Component {
     render() {
         return <div className="commentBox">
             <h1>Comments</h1>
-            <CommentList data={this.state.data} onCommentRemove={this.handleCommentRemove}/>
+            <CommentList data={this.state.data} onCommentRemove={this.handleCommentRemove}
+                         onCommentUpdate={this.handleCommentUpdate}/>
             <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
         </div>
     }
