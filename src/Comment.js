@@ -6,19 +6,21 @@ export default class Comment extends React.Component {
         return {__html: rawMarkup};
     }
 
-    handleCommentRemove = () => {
+    handleCommentRemove() {
         this.props.onCommentRemove({
             id: this.props.id
         });
-    };
+    }
 
-    addLike = () => {
+    addLike() {
         this.handleCommentUpdate(this.props.likes + 1);
-    };
-    subtractLike = () => {
+    }
+
+    subtractLike() {
         this.handleCommentUpdate(this.props.likes - 1);
-    };
-    handleCommentUpdate = (likes) => {
+    }
+
+    handleCommentUpdate(likes) {
         this.props.onCommentUpdate({
             id: this.props.id,
             author: this.props.author,
@@ -33,9 +35,9 @@ export default class Comment extends React.Component {
                 {this.props.author}
             </h2>
             <span dangerouslySetInnerHTML={this.rawMarkup()}/>
-            <button onClick={this.handleCommentRemove}>Remove me</button>
-            <button onClick={this.addLike}>+</button>
-            <button onClick={this.subtractLike}>-</button>
+            <button onClick={this.handleCommentRemove.bind(this)}>Remove me</button>
+            <button onClick={this.addLike.bind(this)}>+</button>
+            <button onClick={this.subtractLike.bind(this)}>-</button>
             {this.props.likes}
         </div>
     }
