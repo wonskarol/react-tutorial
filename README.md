@@ -1,3 +1,8 @@
+# Fork changes
+This fork uses webpack to development. Just type`npm start`
+
+---
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 # React Tutorial
