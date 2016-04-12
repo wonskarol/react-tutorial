@@ -7,9 +7,7 @@ export default class Comment extends React.Component {
     }
 
     handleCommentRemove() {
-        this.props.onCommentRemove({
-            id: this.props.id
-        });
+        this.props.onCommentRemove(this.props.id);
     }
 
     addLike() {
