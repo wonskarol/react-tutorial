@@ -28,10 +28,7 @@ module.exports = {
         colors: true,
         historyApiFallback: true,
         inline: true,
-        hot: true,
-        proxy: {
-            '/api/*': "http://localhost:3000"
-        }
+        hot: true
     }
 };
 
