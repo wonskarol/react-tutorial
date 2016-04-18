@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Comment from './Comment';
 
-export default class CommentList extends Component {
+class CommentList extends Component {
     render() {
         let commentNodes = this.props.data.map((comment) => {
             return <Comment author={comment.author} text={comment.text} key={comment.id} id={comment.id}
-                            likes={comment.likes}
-                            onCommentRemove={this.props.onCommentRemove} onCommentUpdate={this.props.onCommentUpdate}/>
+                            likes={comment.likes} />
         });
         return <div className="commentList">
             {commentNodes}
@@ -15,7 +15,15 @@ export default class CommentList extends Component {
 }
 
 CommentList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
-    onCommentRemove: PropTypes.func.isRequired,
-    onCommentUpdate: PropTypes.func.isRequired
-}
+    data: PropTypes.arrayOf(PropTypes.object)
+};
+
+const mapStateToProps = (state) => {
+    return {
+        data: state.data
+    }
+};
+
+CommentList = connect(mapStateToProps)(CommentList);
+
+export default CommentList;

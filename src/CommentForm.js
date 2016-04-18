@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { addComment } from './actionCreators';
+
 
 export default class CommentForm extends Component {
     handleSubmit(event) {
@@ -34,3 +37,17 @@ export default class CommentForm extends Component {
 CommentForm.propTypes = {
     onCommentSubmit: PropTypes.func.isRequired
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onCommentSubmit: (comment) => {
+            comment.id = Date.now();
+            comment.likes = 0;
+            dispatch(addComment(comment))
+        }
+    }
+};
+
+CommentForm = connect(undefined, mapDispatchToProps)(CommentForm);
+
+export default CommentForm;

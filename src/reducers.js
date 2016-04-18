@@ -6,7 +6,7 @@ function findComment(state, id) {
 
 function data(state = initState, action) {
     let index,
-        newState;
+        nextState;
     switch (action.type) {
         case 'ADD_COMMENT':
             console.log('add comment');
@@ -18,9 +18,9 @@ function data(state = initState, action) {
         case 'UPDATE_COMMENT':
             console.log('update comment');
             index = findComment(state, action.comment.id);
-            newState = Object.assign([], state);
-            newState[index] = action.comment;
-            return newState;
+            nextState = Object.assign([], state);
+            nextState[index] = action.comment;
+            return nextState;
         default:
             return state;
     }

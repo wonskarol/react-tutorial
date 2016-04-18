@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { removeComment, updateComment } from './actionCreators';
+
 
 export default class Comment extends Component {
     rawMarkup() {
@@ -49,3 +52,18 @@ Comment.propTypes = {
     onCommentRemove: PropTypes.func.isRequired,
     onCommentUpdate: PropTypes.func.isRequired
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onCommentUpdate: (comment) => {
+            dispatch(updateComment(comment))
+        },
+        onCommentRemove: (id) => {
+          dispatch(removeComment(id));
+        }
+    }
+};
+
+Comment = connect(undefined, mapDispatchToProps)(Comment);
+
+export default Comment;
