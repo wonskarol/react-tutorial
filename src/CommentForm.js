@@ -1,46 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class CommentForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            author: '',
-            text: ''
-        };
-    }
-
-    handleAuthorChange(e) {
-        this.setState({author: e.target.value});
-    }
-
-    handleTextChange(e) {
-        this.setState({text: e.target.value});
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        let author = this.state.author.trim();
-        let text = this.state.text.trim();
+    handleSubmit(event) {
+        event.preventDefault();
+        let author = event.target.author.value;
+        let text = event.target.text.value;
         if (!text || !author) {
             return;
         }
-        this.props.onCommentSubmit({author: author, text: text});
-        this.setState({author: '', text: ''});
+        this.props.onCommentSubmit({author, text});
+        //reset inputs
+        event.target.author.value = '';
+        event.target.text.value = '';
     }
 
     render() {
         return <form className="commentForm" onSubmit={this.handleSubmit.bind(this)}>
             <input
+                name="author"
                 type="text"
                 placeholder="Your name"
-                value={this.state.author}
-                onChange={this.handleAuthorChange.bind(this)}
             />
             <input
+                name="text"
                 type="text"
                 placeholder="Say something..."
-                value={this.state.text}
-                onChange={this.handleTextChange.bind(this)}
             />
             <input type="submit" value="Post"/>
         </form>
