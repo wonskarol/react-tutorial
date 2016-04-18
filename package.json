@@ -12,6 +12,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.4.3",
     "express": "^4.4.5",
+    "json-loader": "^0.5.4",
     "lodash": "^4.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",

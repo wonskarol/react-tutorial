@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class Comment extends React.Component {
+export default class Comment extends Component {
     rawMarkup() {
         let rawMarkup = marked(this.props.text.toString(), {sanitize: true});
         return {__html: rawMarkup};
@@ -39,4 +39,13 @@ export default class Comment extends React.Component {
             {this.props.likes}
         </div>
     }
+}
+
+Comment.propTypes = {
+    author: PropTypes.string,
+    text: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    likes: PropTypes.number.isRequired,
+    onCommentRemove: PropTypes.func.isRequired,
+    onCommentUpdate: PropTypes.func.isRequired
 }

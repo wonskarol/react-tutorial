@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class CommentForm extends React.Component {
+export default class CommentForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,4 +45,8 @@ export default class CommentForm extends React.Component {
             <input type="submit" value="Post"/>
         </form>
     }
+}
+
+CommentForm.propTypes = {
+    onCommentSubmit: PropTypes.func.isRequired
 }

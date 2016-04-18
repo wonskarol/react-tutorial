@@ -1,23 +1,4 @@
-const initState = [
-    {
-        "id": 1388534400000,
-        "author": "Pete Hunt",
-        "text": "Hey there!",
-        "likes": 0
-    },
-    {
-        "id": 1420070400000,
-        "author": "Paul O’Shannessy",
-        "text": "React is *great*!",
-        "likes": 0
-    },
-    {
-        "id": 1455639402234,
-        "author": "Karol",
-        "text": "Hallo *react* and *redux*",
-        "likes": 0
-    }
-];
+import initState from './comments.json';
 
 function findComment(state, id) {
     return state.findIndex(comment => comment.id === id);

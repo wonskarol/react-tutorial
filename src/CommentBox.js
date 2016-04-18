@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import store from './store';
 import { addComment, removeComment, updateComment } from './actionCreators';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
 
-export default class CommentBox extends React.Component {
+export default class CommentBox extends Component {
     constructor(props) {
         super(props);
         this.state = store.getState();

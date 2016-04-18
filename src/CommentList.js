@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Comment from './Comment';
 
-export default class CommentList extends React.Component {
+export default class CommentList extends Component {
     render() {
         let commentNodes = this.props.data.map((comment) => {
             return <Comment author={comment.author} text={comment.text} key={comment.id} id={comment.id}
@@ -12,4 +12,10 @@ export default class CommentList extends React.Component {
             {commentNodes}
         </div>
     }
+}
+
+CommentList.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object),
+    onCommentRemove: PropTypes.func.isRequired,
+    onCommentUpdate: PropTypes.func.isRequired
 }
