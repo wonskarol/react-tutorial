@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { addComment } from './actionCreators';
 
-
-export default class CommentForm extends Component {
+class CommentForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         let author = event.target.author.value;

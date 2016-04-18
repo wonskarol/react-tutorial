@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { removeComment, updateComment } from './actionCreators';
 
-
-export default class Comment extends Component {
+class Comment extends Component {
     rawMarkup() {
         let rawMarkup = marked(this.props.text.toString(), {sanitize: true});
         return {__html: rawMarkup};
