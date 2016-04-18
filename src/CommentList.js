@@ -4,7 +4,7 @@ import Comment from './Comment';
 
 class CommentList extends Component {
     render() {
-        let commentNodes = this.props.data.map((comment) => {
+        let commentNodes = this.props.comments.map((comment) => {
             return <Comment author={comment.author} text={comment.text} key={comment.id} id={comment.id}
                             likes={comment.likes} />
         });
@@ -20,7 +20,7 @@ CommentList.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.data
+        comments: state.comments
     }
 };
 

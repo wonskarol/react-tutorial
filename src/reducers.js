@@ -4,7 +4,7 @@ function findComment(state, id) {
     return state.findIndex(comment => comment.id === id);
 }
 
-function data(state = initState, action) {
+function comments(state = initState, action) {
     let index,
         nextState;
     switch (action.type) {
@@ -26,4 +26,4 @@ function data(state = initState, action) {
     }
 }
 
-export default data;
+export default comments;

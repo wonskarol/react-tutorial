@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => {
         onCommentSubmit: (comment) => {
             comment.id = Date.now();
             comment.likes = 0;
-            dispatch(addComment(comment))
+            dispatch(addComment(comment));
         }
     }
 };
