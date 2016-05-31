@@ -11,6 +11,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.4.3",
     "express": "^4.4.5",
+    "express-graphql": "^0.5.3",
+    "graphql": "^0.6.0",
     "lodash": "^4.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
@@ -23,7 +25,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack-dev-server": "node_modules/.bin/webpack-dev-server --progress",
-    "node-api-server": "node server.js",
+    "node-api-server": "babel-node server.js",
     "start": "npm-run-all --parallel node-api-server webpack-dev-server"
   },
   "repository": {
