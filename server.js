@@ -1,10 +1,16 @@
 import express from 'express';
+import path from 'path';
+import fs from 'fs';
 import graphqlHTTP from 'express-graphql';
-import MyGraphQLSchema from './schema';
+import {graphql} from 'graphql';
+import {introspectionQuery} from 'graphql/utilities'
+import MyGraphQLSchema from './data/schema';
 
 const app = express();
+
 app.set('port', (process.env.PORT || 3000));
 
+app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/graphql', graphqlHTTP({
   schema: MyGraphQLSchema,
   graphiql: true,
@@ -13,6 +19,19 @@ app.use('/graphql', graphqlHTTP({
 
 app.listen(app.get('port'), () => {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
+});
+
+//generate schema
+graphql(MyGraphQLSchema, introspectionQuery).then(result => {
+  fs.writeFile(
+    './data/schema.json',
+    JSON.stringify(result, null, 2),
+    err => {
+        if (err) throw (err);
+        console.log('Schema created');
+    }
+  );
+
 });
 
 // /**

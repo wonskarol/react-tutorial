@@ -1,15 +1,20 @@
 import React from 'react';
+import Relay from 'react-relay';
+// import RemoveCommentMutation from './RemoveCommentMutation'
 
-export default class Comment extends React.Component {
-    rawMarkup() {
-        let rawMarkup = marked(this.props.text.toString(), {sanitize: true});
+class Comment extends React.Component {
+    rawMarkup(text) {
+        let rawMarkup = marked(text, {sanitize: true});
         return {__html: rawMarkup};
     }
 
     handleCommentRemove() {
-        this.props.onCommentRemove({
-            id: this.props.id
-        });
+      // Relay.Store.commitUpdate(
+      //   new RemoveCommentMutation({
+      //     id: this.props.comment.__dataID__,
+      //     store: this.props.store
+      //   })
+      // );
     }
 
     addLike() {
@@ -30,15 +35,29 @@ export default class Comment extends React.Component {
     }
 
     render() {
+        let {comment} = this.props;
         return <div className="comment">
             <h2 className="commentAuthor">
-                {this.props.author}
+                {comment.author}
             </h2>
-            <span dangerouslySetInnerHTML={this.rawMarkup()}/>
+            <span dangerouslySetInnerHTML={this.rawMarkup(comment.text)}/>
             <button onClick={this.handleCommentRemove.bind(this)}>Remove me</button>
             <button onClick={this.addLike.bind(this)}>+</button>
             <button onClick={this.subtractLike.bind(this)}>-</button>
-            {this.props.likes}
+            {comment.likes}
         </div>
     }
 }
+
+Comment = Relay.createContainer(Comment, {
+  fragments: {
+    comment: () => Relay.QL`
+      fragment on Comment {
+        author,
+        text,
+        likes,
+      }`
+  }
+});
+
+export default Comment;

@@ -14,7 +14,11 @@ module.exports = {
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
-                loader: 'babel'
+                loader: 'babel',
+                query: {
+                  presets: ['react', 'es2015', 'stage-0'],
+                  plugins: ['./../babelRelayPlugin']
+                }
             }
         ]
     },
@@ -34,5 +38,3 @@ module.exports = {
         }
     }
 };
-
-

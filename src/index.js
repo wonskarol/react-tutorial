@@ -12,9 +12,24 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Relay from 'react-relay';
 import CommentBox from './CommentBox';
 
+class HomeRoute extends Relay.Route {
+  static routeName = 'Home';
+  static queries = {
+    commentList: (Component) => Relay.QL`
+      query MainQuery {
+        commentList { ${Component.getFragment('commentList')} }
+      }
+    `
+  }
+}
+
 ReactDOM.render(
-    <CommentBox url="/api/comments" pollInterval={2000}/>,
+    <Relay.RootContainer
+      Component={CommentBox}
+      route={new HomeRoute()}
+    />,
     document.getElementById('content')
 );

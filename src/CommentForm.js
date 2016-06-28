@@ -1,48 +1,36 @@
 import React from 'react';
+import Relay from 'react-relay';
+// import CreateCommentMutation from './CreateCommentMutation';
 
-export default class CommentForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            author: '',
-            text: ''
-        };
-    }
-
-    handleAuthorChange(e) {
-        this.setState({author: e.target.value});
-    }
-
-    handleTextChange(e) {
-        this.setState({text: e.target.value});
-    }
-
-    handleSubmit(e) {
+class CommentForm extends React.Component {
+    handleSubmit = (e) => {
         e.preventDefault();
-        let author = this.state.author.trim();
-        let text = this.state.text.trim();
-        if (!text || !author) {
-            return;
-        }
-        this.props.onCommentSubmit({author: author, text: text});
-        this.setState({author: '', text: ''});
+        // Relay.Store.commitUpdate(
+        //   new CreateCommentMutation({
+        //     author: this.refs.author.value,
+        //     text: this.refs.text.value,
+        //     store: this.props.store
+        //   })
+        // );
+        this.refs.author.value = "";
+        this.refs.text.value = "";
     }
 
     render() {
-        return <form className="commentForm" onSubmit={this.handleSubmit.bind(this)}>
+        return <form className="commentForm" onSubmit={this.handleSubmit}>
             <input
                 type="text"
                 placeholder="Your name"
-                value={this.state.author}
-                onChange={this.handleAuthorChange.bind(this)}
+                ref="author"
             />
             <input
                 type="text"
                 placeholder="Say something..."
-                value={this.state.text}
-                onChange={this.handleTextChange.bind(this)}
+                ref="text"
             />
             <input type="submit" value="Post"/>
         </form>
     }
 }
+
+export default CommentForm;
